@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrSTAGING",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrSTAGING",
+  "parent":{
+    "name":"STAGING",
+    "path":"folders/STAGING.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
