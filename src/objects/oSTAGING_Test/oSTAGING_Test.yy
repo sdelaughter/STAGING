@@ -8,8 +8,8 @@
   "name":"oSTAGING_Test",
   "overriddenProperties":[],
   "parent":{
-    "name":"STAGING",
-    "path":"folders/STAGING.yy",
+    "name":"Test",
+    "path":"folders/STAGING/Test.yy",
   },
   "parentObjectId":null,
   "persistent":false,
