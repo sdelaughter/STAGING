@@ -5,7 +5,7 @@
   ],
   "ResourceOrderSettings":[
     {"name":"oSTAGING_Manager","order":1,"path":"objects/oSTAGING_Manager/oSTAGING_Manager.yy",},
-    {"name":"oSTAGING_Test","order":4,"path":"objects/oSTAGING_Test/oSTAGING_Test.yy",},
+    {"name":"oSTAGING_Test","order":3,"path":"objects/oSTAGING_Test/oSTAGING_Test.yy",},
     {"name":"rSTAGING_Test","order":2,"path":"rooms/rSTAGING_Test/rSTAGING_Test.yy",},
     {"name":"scrSTAGING","order":3,"path":"scripts/scrSTAGING/scrSTAGING.yy",},
     {"name":"sprSTAGING_Done","order":1,"path":"sprites/sprSTAGING_Done/sprSTAGING_Done.yy",},
