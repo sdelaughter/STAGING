@@ -1,6 +1,11 @@
 if !started exit;
 
-if !is_undefined(stage) stage.stop();	
+if !is_undefined(stage) {
+	if !is_instanceof(stage, STAGING_Stage_Async) {
+		stage.stop();
+		array_push(done, stage);
+	}
+}
 
 if array_length(stages) > 0 {
 	stage = array_shift(stages);

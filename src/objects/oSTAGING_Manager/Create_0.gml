@@ -9,6 +9,7 @@ for (var i=0; i<STAGING_ASYNC_TYPE.LEN; i++) {
 	async[i] = [];
 }
 async_count = 0;
+done = [];
 
 stage = undefined;
 started = false;
@@ -51,6 +52,12 @@ add_pause = function(_label="", _pause_frames) {
 
 add_async = function(_async_type, _label, _f, _args, _callback, _callback_args) {
 	var _stage = new STAGING_Stage_Async(_async_type, _label, _f, _args, _callback, _callback_args);
+	acquire(_stage);
+	return _stage;
+}
+
+add_block = function(_wait_for, _label="") {
+	var _stage = new STAGING_Stage_Block(_wait_for, _label);
 	acquire(_stage);
 	return _stage;
 }

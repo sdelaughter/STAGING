@@ -1,4 +1,4 @@
-#macro STAGING_VERSION "1.1.0"
+#macro STAGING_VERSION "1.1.1"
 
 enum STAGING_ASYNC_TYPE {
 	AUDIO_PLAYBACK,
@@ -122,8 +122,10 @@ function STAGING_Stage_Async(_async_type, _label="",
 				return _e[0] == async_id;	
 			});
 			if _index != -1 {
+				stop();
 				array_delete(manager.async[async_type], _index, 1);
 				manager.async_count -= 1;
+				array_push(manager.done, self);
 			}
 		}
 	}
@@ -143,5 +145,13 @@ function STAGING_Stage_Pause(_label="", _pause_frames=1): STAGING_Stage(_label) 
 	start = function(self) {
 		pause_frames -= 1;
 		if pause_frames > 0 self.do_next();
+	}
+}
+
+function STAGING_Stage_Block(_wait_for_stage, _label=""): STAGING_Stage(_label) constructor {
+	wait_for_stage = _wait_for_stage
+	start = function(self) {
+		if array_contains(manager.done, wait_for_stage) return;
+		else self.do_next();
 	}
 }
