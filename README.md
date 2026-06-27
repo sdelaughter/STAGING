@@ -28,12 +28,13 @@ The arguments are as follows:
 - `_f` is a function that will be called when the stage is run.
 - `_args` is an optional array of arguments that will be passed to the function `_f`.  In most cases this is unnecessary, but it can be useful for passing the function a reference to the stage that is calling it (among other things).
 
-#### Special Stages
-In addition to the standard `STAGING_Stage` created by `sm.add()`, the manager has three other functions to create specialized stages.
+In addition to the standard `STAGING_Stage` created by `sm.add()`, the manager has several other functions to create specialized stages:
 
-First is `add_repeating()`, designed to perform some task repeatedly every step until some condition is met.  It takes the same three arguments as the regular `add()`.  The only difference is that its function `_f` must return `STAGING_STATUS.WAIT` to continue running, or `STAGING_STATUS.DONE` once finished.
+#### - `add_repeating()`
+This is designed to perform some task repeatedly every step until some condition is met.  It takes the same three arguments as the regular `add()`.  The only difference is that its function `_f` must return `STAGING_STATUS.WAIT` to continue running, or `STAGING_STATUS.DONE` once finished.
 
-Second is `add_pause()`, which simply waits a fixed number of frames.  A good use case for this is waiting the recommended 10 frames after changing from fullscreen to windowed mode before resizing the window.  For example:
+#### - `add_pause()`
+This simply waits a fixed number of frames.  A good use case for this is waiting the recommended 10 frames after changing from fullscreen to windowed mode before resizing the window.  For example:
 
 ```
 sm.add("Switching to windowed mode...", function() {
@@ -47,7 +48,8 @@ sm.add("Resizing window...", function() {
 });
 ```
 
-Third is `add_async()`, designed to run tasks which trigger asynchronous events.  It takes a different set of arguments, and is constructed as follows:
+#### - `add_async()` 
+This is designed to run tasks which trigger asynchronous events.  It takes a different set of arguments, and is constructed as follows:
 ```
 var _async_stage = sm.add_async(_async_type, _label, _f, _args, _callback, _callback_args);
 ```
@@ -65,6 +67,9 @@ function() {
 - `_args` is the same as for the standard `add()`.
 - `_callback` is a function that will be executed when the corresponding async event triggers for the async id value returned by `_f`.  This is where you should handle data found in the `async_load` DS_Map, such as the status of the operation.  In some cases, your `_callback` function may need to trigger multiple times before you're ready to stop waiting on it.  For example, when downloading a file with `http_get`, you may see a status of `1` (downloading) several times before finally seeing a status of `0` (complete) or something less than `0` (error).  Your `_callback` function must return `STAGING_STATUS.WAIT` as long as the task is still in progress, and return `STAGING_STATUS.DONE` once it's finished.
 - `_callback_args` is an optional array of arguments that will be passed to `_callback`.
+
+#### - `add_block()`
+This waits until some earlier (generally async) stage has completed before allowing subsequent stages to begin.  Takes a reference to the stage to wait on as its first argument, and a label as its second.
 
 ### 3. Define `on_finish()`
 Make sure to define the manager's `on_finish()` function.  This will be run once all stages are complete and all async tasks triggered by stages have finished.  By default it simply calls `room_goto_next()`, which might be enough, but you can do something more complicated like:

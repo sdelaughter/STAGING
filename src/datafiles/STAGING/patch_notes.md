@@ -1,5 +1,9 @@
 # STAGING Patch Notes
 
+## 1.1.1 (2026-06-27)
+- Added new `STAGING_Stage_Block` constructor with corresponding `add_block()` method in `oSTAGING_Manager`.  Takes a reference to an earlier stage as its first argument, and blocks subsequent stages from starting until that one has completed.  Useful when one stage depends on an earlier async stage having finished.
+    - `oSTAGING_Manager` now maintains an array named `done` to record which of its stages have completed.
+
 ## 1.1.0 (2026-06-27)
 - `oSTAGING_Manager` no longer relies on global variables to manage stages, allowing multiple instances to run simultaneously.
 - Calling `new STAGING_Stage(_label, _f, _args)` no longer adds the stage to a queue automatically.  Instead, call `sm.add(_label, _f, _args)` where `sm` is an instance of `oSTAGING_Manager`.  This will also store a reference to the manager instance in the stage's `manager` variable.  Similary, use:

@@ -21,7 +21,7 @@ _repeating_stage.test_counter = 60;
 _repeating_stage.args = [_repeating_stage]; 
 
 // Test async http get
-sm.add_async(STAGING_ASYNC_TYPE.HTTP, "Testing HTTP Get async...",
+var _http_stage = sm.add_async(STAGING_ASYNC_TYPE.HTTP, "Testing HTTP Get async...",
 	function() {
 		var _url = "https://gamemaker.io"
 		show_debug_message($"STAGING: Starting HTTP Get of {_url}");
@@ -48,7 +48,7 @@ sm.add_async(STAGING_ASYNC_TYPE.HTTP, "Testing HTTP Get async...",
 );
 
 // Test async image loading
-sm.add_async(STAGING_ASYNC_TYPE.IMAGE_LOADED, "Testing Image Load async...",
+var _image_load_stage = sm.add_async(STAGING_ASYNC_TYPE.IMAGE_LOADED, "Testing Image Load async...",
 	function() {
 		var _size = 1024;
 		//var _url = $"https://picsum.photos/{_size}";
@@ -129,6 +129,10 @@ sm.add_async(STAGING_ASYNC_TYPE.SAVE_LOAD, "Testing buffer save...",
 sm.add("Doing stuff during async...", function() {
 	show_debug_message("STAGING: Doing stuff during async");
 }, []);
+
+
+// Make sure a prior stage has completed before continuing to a stage that depends on it
+sm.add_block(_image_load_stage, "Waiting until image load completes...");
 
 // Pause Stage, with custom draw for image we loaded via async
 var _pause_stage = sm.add_pause("Pausing for 100 frames...", 100)
