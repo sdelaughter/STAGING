@@ -47,6 +47,11 @@ var _http_stage = sm.add_async(STAGING_ASYNC_TYPE.HTTP, "Testing HTTP Get async.
 	}, []
 );
 
+// Test stop function
+_http_stage.stop = function() {
+	show_debug_message("STAGING: HTTP Get stage has stopped");	
+}
+
 // Test async image loading
 var _image_load_stage = sm.add_async(STAGING_ASYNC_TYPE.IMAGE_LOADED, "Testing Image Load async...",
 	function() {
